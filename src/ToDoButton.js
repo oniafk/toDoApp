@@ -1,8 +1,18 @@
 import React from "react";
+import './CreateToDoButton.css';
 
 function ToDoButton() {
+    const onClickButton = (message) => {
+        alert(message);
+    };
+
     return(
-        <button>+</button>
+        <button 
+        className="CreateToDoButton"
+        onClick={() => onClickButton('olis perros')}
+        >
+        +
+        </button>
     )
 };
 

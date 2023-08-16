@@ -8,14 +8,14 @@ function App() {
   return (
     <>
       <main>
-        <section className="header flex bg-blue-700 w-100% h-100% justify-center items-center pb-14  z-1">
+        <section className="header flex bg-blue-700 w-full h-auto justify-center items-center pb-14  z-1">
           <ToDoCounter />
         </section>
-        <div className="bg-blue-700">
-          <section className="relative w-full h-8 bg-gray-300 rounded-t-2xl z-2 pt-10">
+        <div className="bg-blue-700 h-full">
+          <section className="relative w-full h-8 bg-gray-300 rounded-t-2xl z-2 pt-10 pb-5">
             <ToDoSearch />
           </section>
-          <section className="h-auto grid grid-flow-row justify-center bg-gray-300 ">
+          <section className="h-full grid grid-flow-row justify-center bg-gray-300 ">
             <ToDoList
               toDoItems={[
                 { text: "do something" },

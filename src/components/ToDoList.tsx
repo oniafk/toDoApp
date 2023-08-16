@@ -10,7 +10,7 @@ interface ToDoListProps {
 
 function ToDoList(props: ToDoListProps) {
   return (
-    <div className=" grid grid-flow-row content-around justify-items-center w-auto ">
+    <div className=" grid grid-flow-row content-around justify-items-center h-full pb-20 ">
       {props.toDoItems.map((item, index) => (
         <ToDoItem key={index} text={item.text} />
       ))}

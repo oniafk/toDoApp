@@ -12,10 +12,10 @@ function App() {
           <ToDoCounter />
         </section>
         <div className="bg-blue-700">
-          <section className="relative w-full h-8 bg-gray-300 rounded-t-xl z-2 pt-10">
+          <section className="relative w-full h-8 bg-gray-300 rounded-t-2xl z-2 pt-10">
             <ToDoSearch />
           </section>
-          <section className="h-auto items-center justify-center bg-gray-300">
+          <section className="h-auto grid grid-flow-row justify-center bg-gray-300 ">
             <ToDoList
               toDoItems={[
                 { text: "do something" },

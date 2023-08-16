@@ -4,19 +4,21 @@ interface ToDoItemProps {
 
 function ToDoItem(props: ToDoItemProps) {
   return (
-    <div>
-      <div>
-        <p>{props.text}</p>
-        <span>
-          Star icon <img src="" alt="Star mark" />
-        </span>
+    <div className="w-60 grid m-3 bg-slate-200  h-auto rounded-md ">
+      <div className="grid grid-flow-col h-auto  p-2 w-52 mb-2">
+        <p className="w-48">{props.text}</p>
+        <div className="pl-1">
+          <span>🌟</span>
+        </div>
       </div>
-      <div>
-        <p>date</p>
-        <span>
-          Add to do icon <img src="" alt="Add To Do" />
-          Delete icon <img src="" alt="Delete" />
-        </span>
+      <div className="grid grid-flow-col justify-between px-1 bg-teal-400 rounded-b-md">
+        <div>
+          <p>date</p>
+        </div>
+        <div>
+          <span className=" mr-2">✅</span>
+          <span>❌</span>
+        </div>
       </div>
     </div>
   );

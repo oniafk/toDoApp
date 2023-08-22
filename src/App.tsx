@@ -11,21 +11,29 @@ type ToDoItemType = {
   important: boolean;
 };
 
-let defaultToDos = [
-  { text: "do something 1", completed: false, important: false },
-  { text: "Do another thing 2", completed: false, important: false },
-  { text: "do Something else 3", completed: false, important: false },
-  { text: "Do something else again 4", completed: false, important: false },
-  { text: "do something else again 5", completed: true, important: false },
-  { text: "hakuna matata", completed: true, important: false },
-];
+// let defaultToDos = [
+//   { text: "do something 1", completed: false, important: false },
+//   { text: "Do another thing 2", completed: false, important: false },
+//   { text: "do Something else 3", completed: false, important: false },
+//   { text: "Do something else again 4", completed: false, important: false },
+//   { text: "do something else again 5", completed: true, important: false },
+//   { text: "hakuna matata", completed: true, important: false },
+// ];
+
+// localStorage.setItem('myToDos', JSON.stringify(defaultToDos));
+// localStorage.removeItem("myToDos");
 
 function App() {
+  const savedToDosString = localStorage.getItem("myToDos");
+  const parsedToDos: ToDoItemType[] = savedToDosString
+    ? JSON.parse(savedToDosString)
+    : localStorage.setItem("myToDos", JSON.stringify([]));
+
   const [searchToDo, setSearchToDo] = useState<string>("");
   console.log(searchToDo);
 
   const [completedToDos, setCompletedToDos] =
-    useState<ToDoItemType[]>(defaultToDos);
+    useState<ToDoItemType[]>(parsedToDos);
 
   let completedToDosArray = completedToDos.filter(
     (item) => !!item.completed === true
@@ -36,25 +44,30 @@ function App() {
     item.text.toLowerCase().includes(searchToDo.toLocaleLowerCase())
   );
 
+  const updateLocalStorageAndToDoItems = (newToDos: ToDoItemType[]) => {
+    localStorage.setItem("myToDos", JSON.stringify(newToDos));
+    setCompletedToDos(newToDos);
+  };
+
   const clickCompleteToDo = (text: string) => {
     const newTodos = [...completedToDos];
     const todoIndex = newTodos.findIndex((todo) => todo.text == text);
     newTodos[todoIndex].completed = true;
-    setCompletedToDos(newTodos);
+    updateLocalStorageAndToDoItems(newTodos);
   };
 
   const clickDeleteToDo = (text: string) => {
     const newTodos = [...completedToDos];
     const todoIndex = newTodos.findIndex((todo) => todo.text == text);
     newTodos.splice(todoIndex, 1);
-    setCompletedToDos(newTodos);
+    updateLocalStorageAndToDoItems(newTodos);
   };
 
   const clickImportantToDo = (text: string) => {
     const newTodos = [...completedToDos];
     const todoIndex = newTodos.findIndex((todo) => todo.text == text);
     newTodos[todoIndex].important = true;
-    setCompletedToDos(newTodos);
+    updateLocalStorageAndToDoItems(newTodos);
   };
 
   return (

@@ -11,6 +11,11 @@ type ToDoItemType = {
   important: boolean;
 };
 
+type UseLocalStorageReturnType = {
+  localStorageToDoItem: ToDoItemType[];
+  saveItem: (newItem: ToDoItemType[]) => void;
+};
+
 // let defaultToDos = [
 //   { text: "do something 1", completed: false, important: false },
 //   { text: "Do another thing 2", completed: false, important: false },
@@ -23,17 +28,39 @@ type ToDoItemType = {
 // localStorage.setItem('myToDos', JSON.stringify(defaultToDos));
 // localStorage.removeItem("myToDos");
 
+function useLocalStorage(
+  itemName: string,
+  initialValue: ToDoItemType[] = []
+): UseLocalStorageReturnType {
+  const localStorageItem = localStorage.getItem(itemName);
+
+  let parsedItem: ToDoItemType[];
+
+  if (!localStorageItem) {
+    localStorage.setItem(itemName, JSON.stringify(initialValue));
+    parsedItem = initialValue;
+  } else {
+    parsedItem = JSON.parse(localStorageItem);
+  }
+
+  const [localStorageToDoItem, setLocalStorageToDoItem] =
+    useState<ToDoItemType[]>(parsedItem);
+
+  const saveItem = (newItem: ToDoItemType[]) => {
+    localStorage.setItem(itemName, JSON.stringify(newItem));
+    setLocalStorageToDoItem(newItem);
+  };
+
+  return { localStorageToDoItem, saveItem };
+}
+
 function App() {
-  const savedToDosString = localStorage.getItem("myToDos");
-  const parsedToDos: ToDoItemType[] = savedToDosString
-    ? JSON.parse(savedToDosString)
-    : localStorage.setItem("myToDos", JSON.stringify([]));
+  const localStorageData = useLocalStorage("myToDos", []);
 
   const [searchToDo, setSearchToDo] = useState<string>("");
-  console.log(searchToDo);
-
-  const [completedToDos, setCompletedToDos] =
-    useState<ToDoItemType[]>(parsedToDos);
+  const [completedToDos, setCompletedToDos] = useState<ToDoItemType[]>(
+    localStorageData.localStorageToDoItem
+  );
 
   let completedToDosArray = completedToDos.filter(
     (item) => !!item.completed === true
@@ -44,30 +71,28 @@ function App() {
     item.text.toLowerCase().includes(searchToDo.toLocaleLowerCase())
   );
 
-  const updateLocalStorageAndToDoItems = (newToDos: ToDoItemType[]) => {
-    localStorage.setItem("myToDos", JSON.stringify(newToDos));
-    setCompletedToDos(newToDos);
-  };
-
   const clickCompleteToDo = (text: string) => {
     const newTodos = [...completedToDos];
     const todoIndex = newTodos.findIndex((todo) => todo.text == text);
     newTodos[todoIndex].completed = true;
-    updateLocalStorageAndToDoItems(newTodos);
+    setCompletedToDos(newTodos);
+    localStorageData.saveItem(newTodos);
   };
 
   const clickDeleteToDo = (text: string) => {
     const newTodos = [...completedToDos];
     const todoIndex = newTodos.findIndex((todo) => todo.text == text);
     newTodos.splice(todoIndex, 1);
-    updateLocalStorageAndToDoItems(newTodos);
+    setCompletedToDos(newTodos);
+    localStorageData.saveItem(newTodos);
   };
 
   const clickImportantToDo = (text: string) => {
     const newTodos = [...completedToDos];
     const todoIndex = newTodos.findIndex((todo) => todo.text == text);
     newTodos[todoIndex].important = true;
-    updateLocalStorageAndToDoItems(newTodos);
+    setCompletedToDos(newTodos);
+    localStorageData.saveItem(newTodos);
   };
 
   return (

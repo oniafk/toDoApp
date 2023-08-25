@@ -1,4 +1,4 @@
-import { ToDoItem } from "./ToDoItem";
+import { ToDoItem } from "../ToDoItem";
 
 interface ToDos {
   text: string;

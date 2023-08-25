@@ -1,6 +1,7 @@
 type Props = {
   completedToDos: number;
   defaultToDos: number;
+  completedToDosArray: number;
 };
 
 function ToDoCounter(props: Props) {
@@ -12,7 +13,7 @@ function ToDoCounter(props: Props) {
   } else {
     contentSpan = (
       <span>
-        {props.completedToDos} of <span>{props.defaultToDos} to do's</span>
+        {props.completedToDos} of {props.defaultToDos} completed
       </span>
     );
     contentP = <p className="text-white">you have completed</p>;

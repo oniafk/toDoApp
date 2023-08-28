@@ -1,4 +1,5 @@
 import { ToDoItemType } from "../../../Types/ToDoItemType";
+import { UseLocalStorageReturnType } from "../../../Types/UseLocalStorageReturnType";
 
 import React from "react";
 
@@ -15,6 +16,7 @@ type AppUIProps = {
   ToDoSearch: (props: ToDoSearchProps) => JSX.Element;
   ToDoCounter: (props: ToDoCounterProps) => JSX.Element;
   TotalToDosCount: number;
+  LocalStorageData: UseLocalStorageReturnType;
 };
 
 type ToDoListProps = {
@@ -47,7 +49,10 @@ function AppUI({
   ToDoList,
   ToDoSearch,
   ToDoCounter,
+  LocalStorageData,
 }: AppUIProps) {
+  let loading = LocalStorageData.loading;
+  let error = LocalStorageData.error;
   return (
     <>
       <main>
@@ -64,6 +69,8 @@ function AppUI({
           </section>
           <section className="h-full grid grid-flow-row justify-center bg-gray-300 ">
             <ToDoList
+              {...(loading && <p>Loading...</p>)}
+              {...(error && <p>Error...</p>)}
               toDoItems={filterToDos}
               clickCompleteToDo={clickCompleteToDo}
               clickDeleteToDo={clickDeleteToDo}

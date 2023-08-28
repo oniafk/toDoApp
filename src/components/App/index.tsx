@@ -21,12 +21,19 @@ import { AppUI } from "./AppUI";
 // localStorage.removeItem("myToDos");
 
 function App() {
-  const localStorageData = useLocalStorage("myToDos", []);
+  const { localStorageToDoItem, saveItem, loading, error } = useLocalStorage(
+    "myToDos",
+    []
+  );
 
   const [searchToDo, setSearchToDo] = useState<string>("");
-  const [completedToDos, setCompletedToDos] = useState<ToDoItemType[]>(
-    localStorageData.localStorageToDoItem
-  );
+
+  const [completedToDos, setCompletedToDos] =
+    useState<ToDoItemType[]>(localStorageToDoItem);
+
+  setTimeout(() => {
+    setCompletedToDos(localStorageToDoItem);
+  }, 500);
 
   const completedToDosCount = completedToDos.filter(
     (item) => item.completed
@@ -42,7 +49,7 @@ function App() {
     const todoIndex = newTodos.findIndex((todo) => todo.text == text);
     newTodos[todoIndex].completed = true;
     setCompletedToDos(newTodos);
-    localStorageData.saveItem(newTodos);
+    saveItem(newTodos);
   };
 
   const clickDeleteToDo = (text: string) => {
@@ -50,7 +57,7 @@ function App() {
     const todoIndex = newTodos.findIndex((todo) => todo.text == text);
     newTodos.splice(todoIndex, 1);
     setCompletedToDos(newTodos);
-    localStorageData.saveItem(newTodos);
+    saveItem(newTodos);
   };
 
   const clickImportantToDo = (text: string) => {
@@ -58,7 +65,7 @@ function App() {
     const todoIndex = newTodos.findIndex((todo) => todo.text == text);
     newTodos[todoIndex].important = true;
     setCompletedToDos(newTodos);
-    localStorageData.saveItem(newTodos);
+    saveItem(newTodos);
   };
 
   return (
@@ -75,6 +82,7 @@ function App() {
       ToDoSearch={ToDoSearch}
       ToDoCounter={ToDoCounter}
       TotalToDosCount={totalToDosCount}
+      LocalStorageData={{ loading, error, localStorageToDoItem, saveItem }}
     />
   );
 }

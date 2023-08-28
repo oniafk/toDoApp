@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
+import { CreateToDoForm } from "../CreateToDoForm";
 import { ToDoCounter } from "../ToDoCounter";
 import { ToDoSearch } from "../ToDoSearch";
 import { ToDoList } from "../ToDoList";
@@ -34,6 +35,8 @@ function App() {
   setTimeout(() => {
     setCompletedToDos(localStorageToDoItem);
   }, 500);
+
+  const [openModal, setOpenModal] = useState<boolean>(true);
 
   const completedToDosCount = completedToDos.filter(
     (item) => item.completed
@@ -83,6 +86,9 @@ function App() {
       ToDoCounter={ToDoCounter}
       TotalToDosCount={totalToDosCount}
       LocalStorageData={{ loading, error, localStorageToDoItem, saveItem }}
+      OpenModal={openModal}
+      setOpenModal={setOpenModal}
+      CreateToDoForm={CreateToDoForm}
     />
   );
 }

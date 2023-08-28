@@ -1,8 +1,13 @@
 import type { MouseEventHandler } from "react";
 
-function CreateToDoButton() {
-  const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
-    console.log(event);
+interface CreateToDoButtonProps {
+  openModal: boolean;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function CreateToDoButton(CreateToDoButtonProps: CreateToDoButtonProps) {
+  const handleClick: MouseEventHandler<HTMLButtonElement> = () => {
+    CreateToDoButtonProps.setOpenModal(!CreateToDoButtonProps.openModal);
   };
 
   return (

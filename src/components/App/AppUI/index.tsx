@@ -1,5 +1,6 @@
 import { ToDoItemType } from "../../../Types/ToDoItemType";
 import { UseLocalStorageReturnType } from "../../../Types/UseLocalStorageReturnType";
+import { Modal } from "../../Modal";
 
 import React from "react";
 
@@ -11,13 +12,25 @@ type AppUIProps = {
   clickCompleteToDo: (text: string) => void;
   clickDeleteToDo: (text: string) => void;
   clickImportantToDo: (text: string) => void;
-  CreateToDoButton: React.FC;
+  CreateToDoButton: (props: CreateToDoButtonProps) => JSX.Element;
   ToDoList: (props: ToDoListProps) => JSX.Element;
   ToDoSearch: (props: ToDoSearchProps) => JSX.Element;
   ToDoCounter: (props: ToDoCounterProps) => JSX.Element;
   TotalToDosCount: number;
   LocalStorageData: UseLocalStorageReturnType;
+  OpenModal: boolean;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  CreateToDoForm: (props: CreateToDoFormProps) => JSX.Element;
 };
+
+interface CreateToDoFormProps {
+  openModal: boolean;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+interface CreateToDoButtonProps {
+  openModal: boolean;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 type ToDoListProps = {
   toDoItems: ToDoItemType[];
@@ -50,6 +63,9 @@ function AppUI({
   ToDoSearch,
   ToDoCounter,
   LocalStorageData,
+  OpenModal,
+  setOpenModal,
+  CreateToDoForm,
 }: AppUIProps) {
   let loading = LocalStorageData.loading;
   let error = LocalStorageData.error;
@@ -76,7 +92,25 @@ function AppUI({
               clickDeleteToDo={clickDeleteToDo}
               clickImportantToDo={clickImportantToDo}
             />
-            <CreateToDoButton />
+            <CreateToDoButton
+              openModal={OpenModal}
+              setOpenModal={setOpenModal}
+            />
+
+            {OpenModal && (
+              <Modal container={document.getElementById("modal")!}>
+                <CreateToDoButton
+                  openModal={OpenModal}
+                  setOpenModal={setOpenModal}
+                />
+                {!!OpenModal && (
+                  <CreateToDoForm
+                    openModal={OpenModal}
+                    setOpenModal={setOpenModal}
+                  />
+                )}
+              </Modal>
+            )}
           </section>
         </div>
       </main>

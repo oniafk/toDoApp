@@ -11,6 +11,8 @@ function useLocalStorage(
 
   const [loading, setLoanding] = useState<boolean>(true);
 
+  console.log(loading);
+
   const [error, setError] = useState<boolean>(false);
 
   React.useEffect(() => {

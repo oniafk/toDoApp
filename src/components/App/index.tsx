@@ -36,7 +36,7 @@ function App() {
     setCompletedToDos(localStorageToDoItem);
   }, 500);
 
-  const [openModal, setOpenModal] = useState<boolean>(true);
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   const completedToDosCount = completedToDos.filter(
     (item) => item.completed
@@ -71,6 +71,13 @@ function App() {
     saveItem(newTodos);
   };
 
+  const addToDo = (text: string) => {
+    const newTodos = [...completedToDos];
+    newTodos.push({ text: text, completed: false, important: false });
+    setCompletedToDos(newTodos);
+    saveItem(newTodos);
+  };
+
   return (
     <AppUI
       completedCount={completedToDosCount}
@@ -89,6 +96,7 @@ function App() {
       OpenModal={openModal}
       setOpenModal={setOpenModal}
       CreateToDoForm={CreateToDoForm}
+      addToDo={addToDo}
     />
   );
 }

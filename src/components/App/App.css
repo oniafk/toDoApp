@@ -4,4 +4,9 @@
   box-sizing: border-box;
   font-family: "Quicksand", "Roboto", sans-serif;
   font: 62.5%;
+  height: 100%;
+}
+
+#modal {
+  height: 50px;
 }

@@ -1,3 +1,4 @@
+import React from "react";
 import { ToDoItem } from "../ToDoItem";
 
 interface ToDos {
@@ -11,11 +12,14 @@ interface ToDoListProps {
   clickCompleteToDo: (text: string) => void;
   clickDeleteToDo: (text: string) => void;
   clickImportantToDo: (text: string) => void;
+  loading: boolean;
+  error: boolean;
+  children: React.ReactNode;
 }
 
 function ToDoList(props: ToDoListProps) {
   return (
-    <div className=" grid grid-flow-row content-around justify-items-center h-full pb-20 ">
+    <div className=" grid grid-flow-row content-between justify-items-center h-full pb-20 ">
       {props.toDoItems.map((item, index) => (
         <ToDoItem
           key={index}
@@ -27,6 +31,7 @@ function ToDoList(props: ToDoListProps) {
           clickImportantToDo={props.clickImportantToDo}
         />
       ))}
+      {props.children}
     </div>
   );
 }

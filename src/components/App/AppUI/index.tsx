@@ -21,11 +21,13 @@ type AppUIProps = {
   OpenModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   CreateToDoForm: (props: CreateToDoFormProps) => JSX.Element;
+  addToDo: (text: string) => void;
 };
 
 interface CreateToDoFormProps {
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  addToDo: (text: string) => void;
 }
 interface CreateToDoButtonProps {
   openModal: boolean;
@@ -37,6 +39,9 @@ type ToDoListProps = {
   clickCompleteToDo: (text: string) => void;
   clickDeleteToDo: (text: string) => void;
   clickImportantToDo: (text: string) => void;
+  loading: boolean;
+  error: boolean;
+  children: React.ReactNode;
 };
 
 type ToDoSearchProps = {
@@ -66,6 +71,7 @@ function AppUI({
   OpenModal,
   setOpenModal,
   CreateToDoForm,
+  addToDo,
 }: AppUIProps) {
   let loading = LocalStorageData.loading;
   let error = LocalStorageData.error;
@@ -85,26 +91,35 @@ function AppUI({
           </section>
           <section className="h-full grid grid-flow-row justify-center bg-gray-300 ">
             <ToDoList
-              {...(loading && <p>Loading...</p>)}
-              {...(error && <p>Error...</p>)}
               toDoItems={filterToDos}
               clickCompleteToDo={clickCompleteToDo}
               clickDeleteToDo={clickDeleteToDo}
               clickImportantToDo={clickImportantToDo}
-            />
+              loading={loading}
+              error={error}
+            >
+              <React.Fragment>
+                {loading && <p>Loading...</p>}
+                {error && <p>There was an error</p>}
+              </React.Fragment>
+            </ToDoList>
             <CreateToDoButton
               openModal={OpenModal}
               setOpenModal={setOpenModal}
             />
 
             {OpenModal && (
-              <Modal container={document.getElementById("modal")!}>
+              <Modal
+                container={document.getElementById("modal")!}
+                openModal={OpenModal}
+              >
                 <CreateToDoButton
                   openModal={OpenModal}
                   setOpenModal={setOpenModal}
                 />
                 {!!OpenModal && (
                   <CreateToDoForm
+                    addToDo={addToDo}
                     openModal={OpenModal}
                     setOpenModal={setOpenModal}
                   />

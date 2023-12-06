@@ -86,7 +86,7 @@ function AppUI({
           />
         </section>
         <div className="bg-blue-700 h-5/6">
-          <section className="relative w-full h-8 bg-gray-300 rounded-t-2xl z-2 pt-10 pb-5">
+          <section className="relative w-full h-8 bg-gray-300 rounded-t-2xl z-2 pt-10 pb-5 ">
             <ToDoSearch searchToDo={searchToDo} setSearchToDo={setSearchToDo} />
           </section>
           <section className="h-full grid grid-flow-row justify-center bg-gray-300 ">
@@ -109,10 +109,7 @@ function AppUI({
             />
 
             {OpenModal && (
-              <Modal
-                container={document.getElementById("modal")!}
-                openModal={OpenModal}
-              >
+              <Modal containerId={"modal"!} openModal={OpenModal}>
                 <CreateToDoButton
                   openModal={OpenModal}
                   setOpenModal={setOpenModal}

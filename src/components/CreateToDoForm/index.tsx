@@ -43,7 +43,7 @@ function CreateToDoForm(props: CreateToDoFormProps) {
           create To Do
         </button>
         <button
-          className="w-10 bg-orange-400  rounded-md text-center p-2"
+          className="w-32 bg-orange-400  rounded-md text-center p-2"
           onClick={() => onCancel}
         >
           ❌

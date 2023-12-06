@@ -7,7 +7,7 @@ type ToDoSearchProps = {
 
 function ToDoSearch({ searchToDo, setSearchToDo }: ToDoSearchProps) {
   return (
-    <div className="absolute -top-10 w-4/6 h-12 border-solid rounded-md m-auto inset-0 ">
+    <div className="absolute -top-10 w-4/6 h-12 border-solid rounded-md m-auto inset-0 max-w-xl">
       <input
         onChange={(event) => {
           setSearchToDo(event.target.value);

@@ -19,7 +19,7 @@ interface ToDoListProps {
 
 function ToDoList(props: ToDoListProps) {
   return (
-    <div className=" grid grid-flow-row content-between justify-items-center h-auto pb-20 ">
+    <div className=" flex flex-col content-between gap-5 justify-items-center h-auto pb-20 ">
       {props.toDoItems.map((item, index) => (
         <ToDoItem
           key={index}

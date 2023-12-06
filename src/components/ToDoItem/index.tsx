@@ -44,10 +44,12 @@ function ToDoItem(props: ToDoItemProps) {
           <p>date</p>
         </div>
         <div>
-          <span className=" mr-2" onClick={handleComplete}>
+          <span className=" mr-2 hover:cursor-pointer" onClick={handleComplete}>
             ✅
           </span>
-          <span onClick={handleDelete}>❌</span>
+          <span className="hover:cursor-pointer" onClick={handleDelete}>
+            ❌
+          </span>
         </div>
       </div>
     </div>

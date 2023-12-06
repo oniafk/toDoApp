@@ -85,7 +85,7 @@ function AppUI({
             completedToDosArray={completedCount}
           />
         </section>
-        <div className="bg-blue-700 h-full">
+        <div className="bg-blue-700 h-5/6">
           <section className="relative w-full h-8 bg-gray-300 rounded-t-2xl z-2 pt-10 pb-5">
             <ToDoSearch searchToDo={searchToDo} setSearchToDo={setSearchToDo} />
           </section>

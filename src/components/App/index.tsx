@@ -18,7 +18,7 @@ import { AppUI } from "./AppUI";
 //   { text: "hakuna matata", completed: true, important: false },
 // ];
 
-// localStorage.setItem('myToDos', JSON.stringify(defaultToDos));
+// localStorage.setItem("myToDos", JSON.stringify(defaultToDos));
 // localStorage.removeItem("myToDos");
 
 function App() {

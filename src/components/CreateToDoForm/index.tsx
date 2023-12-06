@@ -7,7 +7,7 @@ interface CreateToDoFormProps {
 }
 
 function CreateToDoForm(props: CreateToDoFormProps) {
-  const { openModal, setOpenModal, addToDo } = props;
+  const { setOpenModal, addToDo } = props;
 
   const [newtoDoValue, setNewToDoValue] = React.useState<string>("");
 

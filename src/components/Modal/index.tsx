@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react";
 import { createPortal } from "react-dom";
 
 interface ModalProps {
